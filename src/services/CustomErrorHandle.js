@@ -11,6 +11,12 @@ class CustomErrorHandle extends Error {
   static wrongCredentials(message = "Invalid Credentials") {
     return new CustomErrorHandle(401, message);
   }
+  static unAuthorizedError(message = "Un-Authorization Access") {
+    return new CustomErrorHandle(401, message);
+  }
+  static notFound(message = "404 Not Found") {
+    return new CustomErrorHandle(404, message);
+  }
 }
 
 export default CustomErrorHandle;

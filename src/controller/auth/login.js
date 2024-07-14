@@ -32,6 +32,7 @@ const loginController = {
       }
 
       //   assign token
+
       const accessToken = JwtToken.sign({ id: user._id, role: user.role });
 
       res.json({
