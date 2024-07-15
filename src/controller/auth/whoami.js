@@ -1,5 +1,5 @@
 import User from "../../models/User.js";
-import CustomErrorHandle from "../../services/customErrorHandle.js";
+import CustomErrorHandle from "../../services/CustomErrorHandle.js";
 
 const whoami = {
   async me(req, res, next) {

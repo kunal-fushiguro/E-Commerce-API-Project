@@ -1,6 +1,6 @@
 import Joi from "joi";
 import RefreshToken from "../../models/Token.js";
-import CustomErrorHandle from "../../services/customErrorHandle.js";
+import CustomErrorHandle from "../../services/CustomErrorHandle.js";
 import { JwtToken } from "../../services/Jwt.js";
 import { JWT_REFRESH_TOKEN_SECERT } from "../../../config/index.js";
 import User from "../../models/User.js";

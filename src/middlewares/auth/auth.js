@@ -1,4 +1,4 @@
-import CustomErrorHandle from "../../services/customErrorHandle.js";
+import CustomErrorHandle from "../../services/CustomErrorHandle.js";
 import { JwtToken } from "../../services/Jwt.js";
 
 const auth = async (req, res, next) => {

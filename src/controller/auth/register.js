@@ -1,5 +1,5 @@
 import Joi from "joi";
-import CustomErrorHandle from "../../services/customErrorHandle.js";
+import CustomErrorHandle from "../../services/CustomErrorHandle.js";
 import User from "../../models/User.js";
 import bcrypt from "bcrypt";
 import { JwtToken } from "../../services/Jwt.js";
@@ -22,6 +22,7 @@ const registerController = {
         .pattern(new RegExp("^[a-zA-Z0-9]{6,40}$"))
         .required(),
       repeat_password: Joi.ref("password"),
+      // role: Joi.string(),
     });
 
     const { error } = registerSchema.validate(req.body);
@@ -43,6 +44,7 @@ const registerController = {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
+        // role: req.body.role,
       });
 
       const result = await user.save();
