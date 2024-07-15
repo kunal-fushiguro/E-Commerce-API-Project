@@ -3,6 +3,8 @@ import CustomErrorHandle from "../../services/customErrorHandle.js";
 import User from "../../models/User.js";
 import bcrypt from "bcrypt";
 import { JwtToken } from "../../services/Jwt.js";
+import { JWT_REFRESH_TOKEN_SECERT } from "../../../config/index.js";
+import RefreshToken from "../../models/Token.js";
 
 const registerController = {
   async register(req, res, next) {
@@ -46,11 +48,19 @@ const registerController = {
       const result = await user.save();
 
       const accessToken = JwtToken.sign({ id: result._id, role: result.role });
+      const refreshToken = JwtToken.sign(
+        { id: result._id, role: result.role },
+        "1y",
+        JWT_REFRESH_TOKEN_SECERT
+      );
+
+      await RefreshToken.create({ token: refreshToken });
 
       res.json({
         success: true,
         message: "User Created Successfully.",
         accessToken,
+        refreshToken,
       });
     } catch (error) {
       return next(error);

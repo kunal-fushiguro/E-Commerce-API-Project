@@ -3,6 +3,8 @@ import User from "../../models/User.js";
 import CustomErrorHandle from "../../services/customErrorHandle.js";
 import bcrypt from "bcrypt";
 import { JwtToken } from "../../services/Jwt.js";
+import RefreshToken from "../../models/Token.js";
+import { JWT_REFRESH_TOKEN_SECERT } from "../../../config/index.js";
 
 const loginController = {
   async login(req, res, next) {
@@ -34,11 +36,19 @@ const loginController = {
       //   assign token
 
       const accessToken = JwtToken.sign({ id: user._id, role: user.role });
+      const refreshToken = JwtToken.sign(
+        { id: user._id, role: user.role },
+        "1y",
+        JWT_REFRESH_TOKEN_SECERT
+      );
+
+      await RefreshToken.create({ token: refreshToken });
 
       res.json({
         success: true,
         message: "Login Successfully.",
         accessToken,
+        refreshToken,
       });
     } catch (error) {
       return next(error);
